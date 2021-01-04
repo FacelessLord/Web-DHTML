@@ -1,0 +1,50 @@
+<! DOCTYPE HTML>
+    <html>
+
+    <head>
+        <meta charset="utf-8">
+        <script>
+            function changeImg() {
+                document.getElementById('pic1').src = 'http://localhost:3001/img2';
+            }
+
+            function getContent() {
+                xhr = new XMLHttpRequest();
+                xhr.open('GET', 'http://localhost:3001/content');
+                xhr.onload = () => {
+                    if (this.status == 200) {
+                        console.log(this.response);
+                        var elem = document.createElement("p");
+                        elem.innerText = this.response
+                        document.body.appendChild(elem);
+                    } else {
+                        console.log("error " + this.status);
+                    };
+                };
+                xhr.send();
+            }
+
+            function addScript(src) {
+                var elem = document.createElement("script");
+                elem.src = src;
+                document.head.appendChild(elem);
+            }
+
+            function onUserData(content) {
+                var elem = document.createElement('p');
+                elem.innerText = content
+                document.body.appendChild(elem);
+                console.log(content)
+            }
+        </script>
+    </head>
+
+    <body>
+        <p><img id='pic1' src='http://localhost:3001/img' alt='Photo'></p>
+        <input type='button' value='change img' onclick='changeImg()'><br>
+        <input type='button' value='get content' onclick='getContent()'><br>
+        <input type='button' value='customer'
+            onclick="addScript('http://localhost:3001/customer/7?callback=onUserData')"><br>
+    </body>
+
+    </html>
